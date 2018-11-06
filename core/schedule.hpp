@@ -90,7 +90,7 @@ coroutine_impl* spawn(u8 shard_id,Fn&& fn,Args&&... args)
  * 返回当前正在运行的任务的协程
  * @return
  */
-coroutine_impl* current_coroutine();
+coroutine_impl* current_context();
 
 
 /**
