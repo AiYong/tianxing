@@ -49,6 +49,25 @@ public:
 
     ~stack_alloctor();
 
+	stack_alloctor& operator=(stack_alloctor const& o)
+	{
+		this->m_stack_pool = o.m_stack_pool;
+	}
+
+	stack_alloctor& operator=(stack_alloctor && o)
+	{
+		this->m_stack_pool = o.m_stack_pool;
+	}
+
+	stack_alloctor(stack_alloctor const& o)
+	{
+		this->m_stack_pool = o.m_stack_pool;
+	}
+
+	stack_alloctor(stack_alloctor && o)
+	{
+		this->m_stack_pool = o.m_stack_pool;
+	}
 public:
 
     stack_context allocate();

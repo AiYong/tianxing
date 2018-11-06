@@ -18,7 +18,7 @@
 #include "task.hpp"
 #include "schedule.hpp"
 
-extern void txmain(int argc,char** argv);
+extern int txmain(int, char**);
 
 namespace tianxing {
 
@@ -82,9 +82,10 @@ void run()
 {
     shard *main_shard = tx.m_shards[0];
     auto* main_scheduler = main_shard->get_scheduler();
+	int ret = 0;
     spawn([&](){
-        auto *ci = spawn([](){
-            txmain(tx.argc,tx.argv);
+        auto *ci = spawn([&](){
+            ret = txmain(tx.argc,tx.argv);
         });
         wait(ci);
         main_scheduler->stop();

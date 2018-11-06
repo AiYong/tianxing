@@ -28,7 +28,7 @@ void spin_lock::lock()
     }
     head->m_next = node;
     while(node->m_waiting)
-        asm("pause");
+        ;
 }
 
 
@@ -41,7 +41,7 @@ void spin_lock::unlock()
         return;
     }
     while(head->m_next == nullptr)
-        asm("pause");
+        ;
     head->m_next->m_waiting = false;
 }
 

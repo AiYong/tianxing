@@ -39,10 +39,10 @@ void coroutine_impl::bind_to(scheduler *s, stack_alloctor &&alloctor)
 void coroutine_impl::resume()
 {
     std::move(m_fiber).resume_with([&](boost::context::fiber &&f)
-                                   {
-                                       m_fiber = std::move(f);
-                                       return boost::context::fiber();
-                                   });
+    {
+        m_fiber = std::move(f);
+        return boost::context::fiber();
+    });
 }
 
 

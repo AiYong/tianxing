@@ -16,7 +16,7 @@
     #endif
 #elif defined(_MSC_VER)
     #define OS_WIN
-    #if define(_WIN64)
+    #if defined(_WIN64)
         #define OS_WIN64
     #else
         #define OS_WIN32

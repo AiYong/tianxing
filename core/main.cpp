@@ -4,9 +4,6 @@
 * Author:   aiyong
 * Date:     2018/7/20 23:42
 */
-
-extern "C" int txmain(int argc, char** argv);
-
 #include "core.hpp"
 
 int main(int argc ,char** argv)
