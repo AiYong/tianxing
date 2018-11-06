@@ -10,7 +10,7 @@
 
 #include "coroutine.hpp"
 
-#include "coroutine_impl.hpp"
+#include "context.hpp"
 
 namespace tianxing {
 
@@ -81,7 +81,7 @@ namespace this_coroutine {
 
 void yield()
 {
-    current_coroutine()->yield();
+    current_context()->yield();
 }
 
 }

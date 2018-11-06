@@ -5,7 +5,7 @@
 * Date:     2018/10/6 23:48
 */
 
-#include "coroutine_impl.hpp"
+#include "context.hpp"
 
 
 namespace tianxing {
@@ -18,7 +18,7 @@ public:
     T* get()
     {
         T* result = nullptr;
-        auto cur = coroutine_impl::current_coroutine;
+        auto cur = coroutine_impl::current_context;
         auto iter = cur->m_css_data.find(this);
         if(iter == cur->m_css_data.end())
         {
@@ -38,7 +38,7 @@ public:
 
     void set(T* t)
     {
-        auto cur = coroutine_impl::current_coroutine;
+        auto cur = coroutine_impl::current_context;
         auto iter = cur->m_css_data.find(this);
         if(iter != cur->m_css_data.end())
         {

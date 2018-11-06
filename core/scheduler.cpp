@@ -8,7 +8,7 @@
 
 #include "scheduler.hpp"
 
-#include "coroutine_impl.hpp"
+#include "context.hpp"
 
 namespace tianxing {
 
@@ -30,7 +30,7 @@ void scheduler::operator()()
     m_stop = false;
     poll_transaction();
     poll_new();
-    coroutine_impl::current_coroutine = m_schedule_task;
+    coroutine_impl::current_context = m_schedule_task;
     m_schedule_task->resume();
 //    while(!m_stop)
 //    {
@@ -163,10 +163,10 @@ void scheduler::schedule(coroutine_impl *ci)
 
 void scheduler::schedule_next()
 {
-    m_ready_queue->push_back(coroutine_impl::current_coroutine);
+    m_ready_queue->push_back(coroutine_impl::current_context);
     m_ready_queue->pop_front();
-    coroutine_impl::current_coroutine = m_ready_queue->front();
-    coroutine_impl::current_coroutine->resume();
+    coroutine_impl::current_context = m_ready_queue->front();
+    coroutine_impl::current_context->resume();
 }
 
 
@@ -184,8 +184,8 @@ void scheduler::sleep_until(coroutine_impl *ci, std::chrono::high_resolution_clo
 {
     m_sleep_queue->push(sleep_info{ci,tp});
     m_ready_queue->pop_front();
-    coroutine_impl::current_coroutine = m_ready_queue->front();
-    coroutine_impl::current_coroutine->resume();
+    coroutine_impl::current_context = m_ready_queue->front();
+    coroutine_impl::current_context->resume();
 }
 
 
@@ -193,8 +193,8 @@ void scheduler::suspend(coroutine_impl *ci)
 {
     m_suspend_set->insert(ci);
     m_ready_queue->pop_front();
-    coroutine_impl::current_coroutine = m_ready_queue->front();
-    coroutine_impl::current_coroutine->resume();
+    coroutine_impl::current_context = m_ready_queue->front();
+    coroutine_impl::current_context->resume();
 }
 
 

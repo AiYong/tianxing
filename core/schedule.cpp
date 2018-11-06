@@ -8,7 +8,7 @@
 #include "schedule.hpp"
 #include "shard.hpp"
 #include "scheduler.hpp"
-#include "coroutine_impl.hpp"
+#include "context.hpp"
 
 namespace tianxing {
 
@@ -73,14 +73,14 @@ void wait(coroutine_impl *co)
 
 void sleep_until(std::chrono::high_resolution_clock::time_point tp)
 {
-    auto* co = current_coroutine();
+    auto* co = current_context();
     co->sleep_until(tp);
 }
 
 
 void suspend()
 {
-    auto* co = current_coroutine();
+    auto* co = current_context();
     co->suspend();
 }
 
@@ -97,14 +97,14 @@ void kill(coroutine_impl *co)
 }
 
 
-coroutine_impl *current_coroutine()
+coroutine_impl *current_context()
 {
-    return coroutine_impl::current_coroutine;
+    return coroutine_impl::current_context;
 }
 
 
 void yield()
 {
-    return coroutine_impl::current_coroutine->yield();
+    return coroutine_impl::current_context->yield();
 }
 }
